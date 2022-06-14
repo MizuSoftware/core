@@ -1,4 +1,4 @@
-package wtf.mizu.clientapi
+package wtf.mizu.core.clientapi
 
 /**
  * A [ModService] stores and manages a list of [Mod]s.

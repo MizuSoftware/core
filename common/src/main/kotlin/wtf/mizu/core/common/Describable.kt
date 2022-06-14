@@ -1,4 +1,4 @@
-package wtf.mizu.common
+package wtf.mizu.core.common
 
 /**
  * An object that can be identified using its [desc] property.
