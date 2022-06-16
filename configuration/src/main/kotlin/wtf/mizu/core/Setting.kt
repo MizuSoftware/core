@@ -1,16 +1,45 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package wtf.mizu.core
 
-import wtf.mizu.core.common.Describable
-import wtf.mizu.core.common.Identifiable
+import wtf.mizu.core.constraint.Constraint
 import kotlin.reflect.KProperty
 
+/**
+ * An extension of [Container] that holds a [value].
+ */
 class Setting<T: Any>(
     id: String,
     desc: String,
-    value: T
+    value: T,
+    private val constraints: MutableMap<Class<out Constraint<T>>, Constraint<T>> = mutableMapOf()
 ): Container(id, desc) {
 
     var value = value
+        set(value) {
+            constraints.values.forEach {
+                field = it.constrain(field, value)
+            }
+        }
+
+    /**
+     * Finds given [Constraint] instance if it exists.
+     */
+    fun <C: Constraint<T>> constraint(`class`: Class<C>)
+            = constraints[`class`] as C?
+
+    /**
+     * Finds given [Constraint] instance if it exists.
+     */
+    inline fun <reified C: Constraint<T>> constraint()
+            = constraint(C::class.java)
+
+    /**
+     * Contrains this [Setting] using given [Constraint]
+     */
+    fun constrain(c: Constraint<T>) {
+        constraints[c.javaClass] = c
+    }
 
     /**
      * Returns [value].
@@ -26,25 +55,6 @@ class Setting<T: Any>(
      */
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         this.value = value
-    }
-
-    data class Builder<T: Any>(
-        /**
-         * Stores the [id] of the [Setting] being built.
-         */
-        override val id: String,
-        /**
-         * Stores the [desc] of the [Setting] being built.
-         */
-        override val desc: String = "$id.desc",
-        /**
-         * Stores the default value of the [Setting] being built.
-         */
-        val value: T
-    ): Identifiable, Describable {
-
-        val built = Setting(id, desc, value)
-
     }
 
 }

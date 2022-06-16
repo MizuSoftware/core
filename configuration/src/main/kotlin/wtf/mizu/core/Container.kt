@@ -21,6 +21,11 @@ open class Container(
         return containers.add(element)
     }
 
+    override fun remove(element: Container): Boolean {
+        containerToId.remove(element.id)
+        return containers.remove(element)
+    }
+
     /**
      * Returns the [Container] instance stored by this [Container] with specified
      * [id] if it exists.
@@ -40,7 +45,7 @@ inline fun Container.container(id: String, desc: String = "$id.desc")
  */
 inline fun <T: Any> Container.setting(
     id: String, desc: String = "$id.desc", value: T,
-    crossinline block: Setting.Builder<T>.() -> Unit
-) = Setting.Builder(id, desc, value)
+    crossinline block: Setting<T>.() -> Unit
+) = Setting(id, desc, value)
     .apply(block)
-    .built.also(this::add)
+    .also(this::add)
