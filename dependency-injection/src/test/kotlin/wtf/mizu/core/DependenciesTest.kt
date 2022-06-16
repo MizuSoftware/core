@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 
-class DependencyInjectionTest {
+class DependenciesTest {
 
     @Test
     fun assumeInjectable() {

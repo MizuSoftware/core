@@ -3,9 +3,9 @@
 package wtf.mizu.core
 
 /**
- * Provides a simple [DependencyInjection] with only a few lines.
+ * Provides a simple [Dependencies] with only a few lines.
  */
-object DependencyInjection {
+object Dependencies {
 
     private val dependencies = mutableMapOf<Class<*>, Any>()
 
@@ -25,13 +25,13 @@ object DependencyInjection {
 }
 
 /**
- * Replaces [DependencyInjection] by one line.
+ * Replaces [Dependencies] by one line.
  */
-inline fun <reified T: Any> inject() = DependencyInjection.find(T::class.java)
+inline fun <reified T: Any> inject() = Dependencies.find(T::class.java)
 
 /**
  * Assigns to given [dependencyClass] given [T].
  */
 inline fun <T: Any> T.assign(dependencyClass: Class<in T>) {
-    DependencyInjection.assign(dependencyClass, this)
+    Dependencies.assign(dependencyClass, this)
 }
