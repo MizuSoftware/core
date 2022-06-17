@@ -38,6 +38,7 @@ class Setting<T: Any>(
      * Contrains this [Setting] using given [Constraint]
      */
     fun constrain(c: Constraint<T>) {
+        value = value
         constraints[c.javaClass] = c
     }
 

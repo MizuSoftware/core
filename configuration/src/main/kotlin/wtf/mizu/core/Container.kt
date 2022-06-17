@@ -32,6 +32,8 @@ open class Container(
      */
     operator fun get(id: String) = containerToId[id]
 
+
+
 }
 
 /**
@@ -45,7 +47,7 @@ inline fun Container.container(id: String, desc: String = "$id.desc")
  */
 inline fun <T: Any> Container.setting(
     id: String, desc: String = "$id.desc", value: T,
-    crossinline block: Setting<T>.() -> Unit
+    crossinline block: Setting<T>.() -> Unit = {}
 ) = Setting(id, desc, value)
     .apply(block)
     .also(this::add)
