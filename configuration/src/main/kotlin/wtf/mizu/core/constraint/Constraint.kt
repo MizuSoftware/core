@@ -3,7 +3,7 @@ package wtf.mizu.core.constraint
 import wtf.mizu.core.Setting
 
 /**
- * A [Constraint] is an object that interferes when a [Setting.value]
+ * A [Constraint] is an object that interferes when a [Setting.constrainedValue]
  */
 interface Constraint<T: Any> {
 

@@ -10,37 +10,27 @@ import wtf.mizu.core.common.Identifiable
  */
 open class Container(
     override val id: String,
-    override val desc: String = "$id.desc"
-): Identifiable, Describable {
+    override val desc: String = "$id.desc",
+    private val containerToId: MutableMap<String, Configurable> = mutableMapOf()
+): Configurable {
 
-    private val containerToId = mutableMapOf<String, Container>()
-
-    val child: Collection<Container>
+    /**
+     * @inheritDoc
+     */
+    override val configurables: Collection<Configurable>
         get() = containerToId.values
 
     /**
-     * Returns the [Container] instance stored by this [Container] with specified
-     * [id] if it exists.
+     * @inheritDoc
      */
-    operator fun get(id: String) = containerToId[id]
+    override fun configurable(id: String) = containerToId[id]
 
     /**
-     * Returns the [Container] instance stored by this [Container] with specified
-     * [id] if it exists.
+     * @inheritDoc
      */
-    inline fun find(id: String) = get(id)
-
-    /**
-     * Adds given [Container] to this [Container] instance.
-     */
-    operator fun plusAssign(container: Container) {
-        containerToId[container.id] = container
+    override fun add(configurable: Configurable) {
+        containerToId[configurable.id] = configurable
     }
-
-    /**
-     * Adds given [Container] to this [Container] instance.
-     */
-    inline fun add(container: Container) = plusAssign(container)
 
 }
 
@@ -49,13 +39,3 @@ open class Container(
  */
 inline fun Container.container(id: String, desc: String = "$id.desc")
         = Container(id, desc).also(this::add)
-
-/**
- * Creates and registers a new [Setting] inside this container.
- */
-inline fun <T: Any> Container.setting(
-    id: String, desc: String = "$id.desc", value: T,
-    crossinline block: Setting<T>.() -> Unit = {}
-) = Setting(id, desc, value)
-    .apply(block)
-    .also(this::add)

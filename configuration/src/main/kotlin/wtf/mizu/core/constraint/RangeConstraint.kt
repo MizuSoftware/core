@@ -29,10 +29,10 @@ data class RangeBoundConstraint<T: Comparable<T>>(
  * Defines the value-range of a [Setting] with [Comparable] value.
  */
 inline var <T: Comparable<T>> Setting<T>.range: ClosedRange<T>?
-    get() = this.constraint<RangeConstraint<T>>()?.range
+    get() = this.find<RangeConstraint<T>>()?.range
     set(value) {
         if (value != null) {
-            this.constrain(RangeConstraint(value))
+            this.add(RangeConstraint(value))
         }
     }
 
@@ -40,9 +40,9 @@ inline var <T: Comparable<T>> Setting<T>.range: ClosedRange<T>?
  * Defines the value-range of a [Setting] with a [ClosedRange] of [Comparable] value.
  */
 inline var <T: Comparable<T>> Setting<ClosedRange<T>>.bound: ClosedRange<T>?
-    get() = this.constraint<RangeBoundConstraint<T>>()?.range
+    get() = this.find<RangeBoundConstraint<T>>()?.range
     set(value) {
         if (value != null) {
-            this.constrain(RangeBoundConstraint(value))
+            this.add(RangeBoundConstraint(value))
         }
     }
