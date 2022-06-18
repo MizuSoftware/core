@@ -10,7 +10,7 @@ import kotlin.reflect.KProperty
  */
 class Setting<T: Any>(
     id: String,
-    desc: String,
+    desc: String = "$id.desc",
     value: T,
     private val constraints: MutableMap<Class<out Constraint<T>>, Constraint<T>> = mutableMapOf()
 ): Container(id, desc) {

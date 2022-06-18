@@ -10,21 +10,13 @@ import wtf.mizu.core.common.Identifiable
  */
 open class Container(
     override val id: String,
-    override val desc: String,
-    private val containers: MutableList<Container> = mutableListOf()
-): Identifiable, Describable, MutableList<Container> by containers {
+    override val desc: String = "$id.desc"
+): Identifiable, Describable {
 
     private val containerToId = mutableMapOf<String, Container>()
 
-    override fun add(element: Container): Boolean {
-        containerToId[element.id] = element
-        return containers.add(element)
-    }
-
-    override fun remove(element: Container): Boolean {
-        containerToId.remove(element.id)
-        return containers.remove(element)
-    }
+    val child: Collection<Container>
+        get() = containerToId.values
 
     /**
      * Returns the [Container] instance stored by this [Container] with specified
@@ -32,7 +24,23 @@ open class Container(
      */
     operator fun get(id: String) = containerToId[id]
 
+    /**
+     * Returns the [Container] instance stored by this [Container] with specified
+     * [id] if it exists.
+     */
+    inline fun find(id: String) = get(id)
 
+    /**
+     * Adds given [Container] to this [Container] instance.
+     */
+    operator fun plusAssign(container: Container) {
+        containerToId[container.id] = container
+    }
+
+    /**
+     * Adds given [Container] to this [Container] instance.
+     */
+    inline fun add(container: Container) = plusAssign(container)
 
 }
 
