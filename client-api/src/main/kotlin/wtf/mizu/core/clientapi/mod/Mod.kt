@@ -1,4 +1,4 @@
-package wtf.mizu.core.clientapi
+package wtf.mizu.core.clientapi.mod
 
 import wtf.mizu.core.Container
 import wtf.mizu.core.common.Describable
