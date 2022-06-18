@@ -1,5 +1,6 @@
 # mizu-core
 The core of [Mizu Client][mizu-website], organized into submodules.
+Version: `0.0.1`
 
 ## modules
 - [client-api][module-client-api] - The client base of Mizu, what's used to power the entire client without [feature](#) implementations.
