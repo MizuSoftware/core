@@ -9,8 +9,17 @@ import wtf.mizu.core.common.Identifiable
  * Represents a [Container] that holds both child [Container] and [Setting] instances.
  */
 open class Container(
+    /**
+     * @inheritDoc
+     */
     override val id: String,
+    /**
+     * @inheritDoc
+     */
     override val desc: String = "$id.desc",
+    /**
+     * A map used to associate each child [Configurable] to its ID.
+     */
     private val containerToId: MutableMap<String, Configurable> = mutableMapOf()
 ): Configurable {
 

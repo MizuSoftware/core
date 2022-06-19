@@ -9,7 +9,13 @@ import kotlin.reflect.KProperty
  * implementations.
  */
 class ConstrainedValue<T: Any>(
+    /**
+     * The default value
+     */
     value: T,
+    /**
+     * The constraints map
+     */
     val constraints: MutableMap<Class<out Constraint<T>>, Constraint<T>> = mutableMapOf()
 ) {
 

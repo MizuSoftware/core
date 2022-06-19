@@ -12,7 +12,7 @@
             <option value="$PROJECT_DIR$/client-api" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/configuration" />
-            <option value="$PROJECT_DIR$/dependency-injection" />
+            <option value="$PROJECT_DIR$/service-loader" />
           </set>
         </option>
       </GradleProjectSettings>
