@@ -10,10 +10,6 @@ plugins {
 group = "wtf.mizu.core"
 version = semver.version
 
-repositories {
-    mavenCentral()
-}
-
 subprojects {
     apply {
         plugin("java-library")
@@ -26,13 +22,13 @@ subprojects {
     version = parent!!.version
 
     repositories {
-        mavenCentral()
         mavenLocal()
+        mavenCentral()
     }
 
-    val implementation by configurations
     dependencies {
-        implementation(kotlin("stdlib-jdk8"))
+        implementation("org.jetbrains.kotlin", "kotlin-stdlib", "1.7.0")
+
         testImplementation(platform("org.junit:junit-bom:5.8.2"))
         testImplementation("org.junit.jupiter:junit-jupiter")
     }
