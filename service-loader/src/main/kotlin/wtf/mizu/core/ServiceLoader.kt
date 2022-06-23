@@ -19,7 +19,8 @@ object ServiceLoader {
      * Finds given [dependencyClass] instance.
      */
     @Suppress("UNCHECKED_CAST")
-    fun <T: Any> find(dependencyClass: Class<T>) = services[dependencyClass] as Service<T>
+    fun <T: Any> find(dependencyClass: Class<T>)
+            = services[dependencyClass] as Service<T>
 
     /**
      * Assigns to this service class given [impl].
