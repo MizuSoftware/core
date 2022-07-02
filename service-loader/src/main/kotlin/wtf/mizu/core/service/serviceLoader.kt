@@ -1,5 +1,6 @@
-package wtf.mizu.core
+package wtf.mizu.core.service
 
+import wtf.mizu.core.service.exception.UnimplementedServiceException
 import kotlin.reflect.KClass
 
 /**
@@ -17,7 +18,7 @@ object ServiceLoader {
     @JvmName("find")
     operator fun <T : Any> get(
         serviceClass: KClass<out T>,
-    ): Service<out T>? = this.find(serviceClass.java)
+    ): Service<out T> = find(serviceClass.java)
 
     /**
      * Syntactic sugar around [assign].
@@ -26,7 +27,7 @@ object ServiceLoader {
      */
     @JvmName("assign")
     operator fun <T : Any> set(serviceClass: KClass<out T>, impl: T) =
-        this.assign(serviceClass.java, impl)
+        assign(serviceClass.java, impl)
 
     /**
      * Assigns the given [implementation] to the given [service].
@@ -35,7 +36,7 @@ object ServiceLoader {
      * @param implementation the implementation to assign to the [service].
      */
     fun <T : Any> assign(service: Class<out T>, implementation: T) {
-        this.services[service] = Service(service, implementation) as Service<Any>
+        services[service] = Service(service, implementation) as Service<Any>
     }
 
     /**
@@ -43,10 +44,14 @@ object ServiceLoader {
      *
      * @param serviceClass the wanted instance's class.
      *
+     * @throws UnimplementedServiceException if the service's implementation
+     *                                       isn't found
+     *
      * @return the instance, if found, or `null`.
      */
-    fun <T : Any> find(serviceClass: Class<out T>): Service<T>? =
-        this.services[serviceClass] as? Service<T>
+    fun <T : Any> find(serviceClass: Class<out T>): Service<T> =
+        services[serviceClass] as? Service<T>
+            ?: throw UnimplementedServiceException(serviceClass)
 }
 
 /**

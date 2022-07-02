@@ -1,4 +1,4 @@
-package wtf.mizu.core
+package wtf.mizu.core.service
 
 import kotlin.reflect.KProperty
 
