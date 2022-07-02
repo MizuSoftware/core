@@ -4,16 +4,15 @@ import wtf.mizu.core.common.Describable
 import wtf.mizu.core.common.Identifiable
 
 /**
- * A [Configurable] object is an object that can be tweaked to fit someone needs
- * through settings.
+ * An object that can be tweaked to fit the end user's needs through settings.
  *
- * [Setting] are also [Configurable]. They can be accessed through both [containers]
- * and [configurable] functions.
+ * [Setting]s are also [Configurable]. They can be accessed through both
+ * [containers] and [configurable] functions.
  *
- * You might also store [Container] which simply implement the [Configurable] interface.
+ * You might also store a [Container] which simply implements the
+ * [Configurable] interface.
  */
-interface Configurable: Identifiable, Describable {
-
+interface Configurable : Identifiable, Describable {
     /**
      * Returns a list of [Configurable] instances.
      */
@@ -25,8 +24,7 @@ interface Configurable: Identifiable, Describable {
     fun configurable(id: String): Configurable?
 
     /**
-     * Adds given [Configurable] to this [Configurable].
+     * Adds the given [Configurable] to this instance.
      */
     fun add(configurable: Configurable)
-
 }

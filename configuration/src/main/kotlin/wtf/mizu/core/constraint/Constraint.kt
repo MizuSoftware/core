@@ -3,14 +3,19 @@ package wtf.mizu.core.constraint
 import wtf.mizu.core.Setting
 
 /**
- * A [Constraint] is an object that interferes when a [Setting.constrainedValue]
+ * An object that interferes when a [Setting.constrainedValue] has to be
+ * constrained.
  */
-interface Constraint<T: Any> {
-
+interface Constraint<T : Any> {
     /**
-     * Apply the [Constraint] condition by returning a value that
-     * might differ of [future] to modify the value.
+     * Applies this [Constraint].
+     *
+     * By default, returns the [previous] value.
+     *
+     * @param previous the previous value, can be unconstrained.
+     * @param future the value to constrain.
+     *
+     * @return the constrained value.
      */
-    fun constrain(previous: T, future: T) = previous
-
+    fun apply(previous: T, future: T): T = previous
 }

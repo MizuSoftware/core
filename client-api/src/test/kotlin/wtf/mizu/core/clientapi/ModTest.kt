@@ -4,24 +4,49 @@ import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
 import wtf.mizu.core.clientapi.mod.Mod
 import wtf.mizu.core.setting
-import wtf.mizu.keen.on
+import wtf.mizu.kawa.api.Subscription
+import wtf.mizu.kawa.dsl.on
 
+/**
+ * Tests the [Mod] abstract class.
+ *
+ * @author Shyrogan
+ * @author lambdagg
+ * @since 0.0.1
+ */
 class ModTest {
+    companion object {
+        /**
+         * The expected dummy mod identifier.
+         */
+        const val DUMMY_MOD_IDENTIFIER = "dummy_mod"
 
-    inline fun mod(id: String, desc: String = "$id.desc", block: Mod.() -> Unit)
-            = object: Mod(id, desc) {}.apply(block)
-
-    @Test
-    fun modTest() {
-        val m = mod("mod") {
-            val setting by setting("my_setting", false)
-
-            on<String> {
-                println("$this $setting")
-            }
-        }
-        assumeTrue(m.id.equals("mod", true))
-        assumeTrue(m.subscriptions()[String::class.java] != null)
+        /**
+         * The expected String value, dispatched using Kawa.
+         */
+        const val EXPECTED_VALUE = "foobar1234"
     }
 
+    var dispatchedValue: String? = null
+
+    @Suppress("UNCHECKED_CAST")
+    @Test
+    fun testMod() {
+        val dummyMod = (object : Mod(DUMMY_MOD_IDENTIFIER) {}).apply {
+            val setting by setting(DUMMY_MOD_IDENTIFIER, false)
+
+            on<String> {
+                dispatchedValue = it
+            }
+        }
+
+        assumeTrue(dummyMod.identifier == DUMMY_MOD_IDENTIFIER)
+
+        val subList: List<Subscription<String>>? =
+            dummyMod.subscriptions()[String::class.java] as List<Subscription<String>>?
+        assumeTrue(subList != null)
+
+        subList!!.forEach { it.consume(EXPECTED_VALUE) }
+        assumeTrue(EXPECTED_VALUE == dispatchedValue)
+    }
 }

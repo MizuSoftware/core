@@ -1,50 +1,33 @@
-@file:Suppress("NOTHING_TO_INLINE")
-
 package wtf.mizu.core
 
-import wtf.mizu.core.common.Describable
-import wtf.mizu.core.common.Identifiable
-
 /**
- * Represents a [Container] that holds both child [Container] and [Setting] instances.
+ * An object that holds both child [Container] and [Setting] instances.
  */
 open class Container(
-    /**
-     * @inheritDoc
-     */
-    override val id: String,
-    /**
-     * @inheritDoc
-     */
-    override val desc: String = "$id.desc",
+    override val identifier: String,
+
+    override val descriptionIdentifier: String = "$identifier.desc",
+
     /**
      * A map used to associate each child [Configurable] to its ID.
      */
-    private val containerToId: MutableMap<String, Configurable> = mutableMapOf()
-): Configurable {
-
-    /**
-     * @inheritDoc
-     */
+    private val containerToId: MutableMap<String, Configurable> =
+        hashMapOf(),
+) : Configurable {
     override val configurables: Collection<Configurable>
         get() = containerToId.values
 
-    /**
-     * @inheritDoc
-     */
     override fun configurable(id: String) = containerToId[id]
 
-    /**
-     * @inheritDoc
-     */
     override fun add(configurable: Configurable) {
-        containerToId[configurable.id] = configurable
+        containerToId[configurable.identifier] = configurable
     }
 
+    /**
+     * Creates and registers a new [Container] in this instance.
+     *
+     * @return the newly created [Container].
+     */
+    fun container(id: String, desc: String = "$id.desc") =
+        Container(id, desc).also(this::add)
 }
-
-/**
- * Creates and registers a new [Container] inside this container.
- */
-inline fun Container.container(id: String, desc: String = "$id.desc")
-        = Container(id, desc).also(this::add)

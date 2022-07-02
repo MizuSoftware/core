@@ -1,23 +1,17 @@
 package wtf.mizu.core.common
 
 /**
- * An object that can be identified using its [id] property.
+ * An object that can be identified using its [identifier] property.
  *
- * @see id
+ * @author Shyrogan
+ * @since 0.0.1
  */
 interface Identifiable {
-
     /**
-     * Returns an identifier used to identify this object.
+     * A **unique** string used to identify this object.
      *
-     * To maintain a consistency between identifiers, they must respect
-     * the following regex expression:
-     * ```regex
-     * ^[a-z][a-z._]+[a-z]$
-     * ```
-     *
-     * An [id] must be composed of lower case letters and underscore.
-     * The first and last characters must be letters.
+     * To maintain a consistency between descriptions, those *must* comply with
+     * the regex expression such as coded into the [IDENTIFIER_PATTERN] const.
      *
      * Some **good** examples for Identifier would be:
      * ```
@@ -26,13 +20,5 @@ interface Identifiable {
      * domain.object.more.even_more
      * ```
      */
-    val id: String
-
-    companion object {
-        /**
-         * Returns the regex used to maintain a consistency between
-         * identifiers.
-         */
-        val ID_PATTERN = "^[a-z][a-z._]+[a-z]\$".toRegex()
-    }
+    val identifier: String
 }

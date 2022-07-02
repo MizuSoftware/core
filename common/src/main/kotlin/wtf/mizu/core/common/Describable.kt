@@ -1,30 +1,24 @@
 package wtf.mizu.core.common
 
 /**
- * An object that can be identified using its [desc] property.
- * @see desc
+ * An object that can be identified using its [descriptionIdentifier] property.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 interface Describable {
-
     /**
-     * Returns an identifier used to describe this object.
+     * A string used to reference this object's description.
      *
-     * To maintain a consistency between descriptions, they must respect
-     * the following regex expression:
-     * ```regex
-     * ^[a-z][a-z._]+[a-z]$
-     * ```
-     *
-     * An [desc] must be composed of lower case letters and underscore.
-     * The first and last characters must be letters.
+     * To maintain a consistency between descriptions, those *must* comply with
+     * the regex expression such as coded into the [IDENTIFIER_PATTERN] const.
      *
      * Some **good** examples for descriptions would be:
      * ```
-     * domain.object
-     * domain.object.more
-     * domain.object.more.even_more
+     * domain.object.desc
+     * domain.object.more.desc
+     * domain.object.more.even_more.desc
      * ```
      */
-    val desc: String
-
+    val descriptionIdentifier: String
 }

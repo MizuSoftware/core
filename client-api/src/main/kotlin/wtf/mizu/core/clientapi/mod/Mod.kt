@@ -1,28 +1,31 @@
 package wtf.mizu.core.clientapi.mod
 
 import wtf.mizu.core.Container
-import wtf.mizu.core.common.Describable
-import wtf.mizu.core.common.Identifiable
-import wtf.mizu.keen.Listener
-import wtf.mizu.keen.Subscription
+
+import wtf.mizu.kawa.api.Listener
+import wtf.mizu.kawa.api.Subscription
 
 /**
- * A client [Mod] is an object modifies the behaviour of the game through
- * events/inputs.
+ * Modifies the game behaviour through events and/or inputs.
  *
- * Using `configurations`, we can adjust [Mod] to the context and
- * provides the best experience possible.
+ * Using
+ * [`configurations`](https://github.com/MizuSoftware/core/tree/main/configuration),
+ * we can adjust [Mod] to the wanted context and provide the best possible
+ * experience.
  *
- * Even if there is no [Mod] class that implements [Toggleable], it is a pretty common
- * thing for [Mod] to implement it.
+ * Even if there is no abstract [Mod] class that implements
+ * [Toggleable][wtf.mizu.core.common.Toggleable], it is common for a [Mod] to
+ * do so.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 abstract class Mod(
     id: String,
     desc: String = "$id.desc",
-): Listener, Container(id, desc) {
-
-    private val subscriptions = mutableMapOf<Class<*>, List<Subscription<*>>>()
+) : Listener, Container(id, desc) {
+    private val subscriptions: MutableMap<Class<*>, List<Subscription<*>>>
+            by lazy { hashMapOf() }
 
     override fun subscriptions() = subscriptions
-
 }

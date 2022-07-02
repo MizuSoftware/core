@@ -1,25 +1,45 @@
 package wtf.mizu.core.clientapi.mod
 
+import kotlin.reflect.KClass
+
 /**
- * A [ModService] stores and manages a list of [Mod]s.
+ * Stores and manages a [Mod] list.
  *
- * It is possible to add custom [Mod] to the [ModService] using the [add] function
- * only if:
- * - There is not already a [Mod] with the same ID.
- * - There is not already a [Mod] with the same type.
+ * It is possible to add a custom [Mod] to a [ModService] instance using the
+ * [add] method if and ONLY if no other [Mod] having the same id or type
+ * already exists.
  *
  * If one of those criteria is not respected, an exception will be thrown.
+ *
+ * @author Shyrogan
+ * @see Mod
+ * @since 0.0.1
  */
-interface ModService: MutableList<Mod> {
+interface ModService : MutableList<Mod> {
+    /**
+     * Gets a [Mod] instance from its id.
+     *
+     * @param modId the wanted mod's id.
+     *
+     * @return the wanted mod, or null if not found.
+     */
+    operator fun get(modId: String): Mod?
 
     /**
-     * Returns a [Mod] instance from its [id].
+     * Gets a [Mod] instance from its class.
+     *
+     * @param modClass the wanted mod's class.
+     *
+     * @return the wanted mod, or null if not found.
      */
-    operator fun get(id: String): Mod?
+    operator fun get(modClass: Class<out Mod>): Mod?
 
     /**
-     * Returns a [Mod] instance from its [class].
+     * Gets a [Mod] instance from its Kotlin class.
+     *
+     * @param modKlass the wanted mod's Kotlin class.
+     *
+     * @return the wanted mod, or null if not found.
      */
-    operator fun get(`class`: Class<out Mod>): Mod?
-
+    operator fun get(modKlass: KClass<out Mod>): Mod? = this[modKlass.java]
 }

@@ -2,16 +2,18 @@ package wtf.mizu.core
 
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
+import java.util.*
 
 class ServiceLoaderTest {
-
     @Test
     fun assumeInjectable() {
-        val text = "hello"
-        ServiceLoader.assign(String::class.java, text)
-        val d by ServiceLoader.find(String::class.java)
-        println(d)
-    }
+        val string = UUID.randomUUID().toString()
+        ServiceLoader.assign(String::class.java, string)
 
+        val service = ServiceLoader.find(String::class.java)
+        assumeTrue(service != null)
+
+        val d by service!!
+        assumeTrue(d == string)
+    }
 }
