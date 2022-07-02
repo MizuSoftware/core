@@ -1,6 +1,3 @@
+rootProject.name = "mizu-core"
 
-rootProject.name = "core"
-include("common")
-include("client-api")
-include("service-loader")
-include("configuration")
+include("common", "client-api", "service-loader", "configuration")

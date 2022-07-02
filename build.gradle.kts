@@ -1,25 +1,24 @@
 plugins {
     `java-library`
-    `maven-publish`
+    kotlin("jvm") version Plugins.KOTLIN apply false
+
     signing
-    id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
-    id("com.github.jmongard.git-semver-plugin") version "0.4.2"
-    kotlin("jvm") version "1.7.0" apply false
+    `maven-publish`
+    id("io.github.gradle-nexus.publish-plugin") version Plugins.NEXUS
 }
 
-group = "wtf.mizu.core"
-version = semver.version
+allprojects {
+    group = "wtf.mizu.core"
+    version = "0.0.1"
+}
 
 subprojects {
     apply {
         plugin("java-library")
         plugin("org.jetbrains.kotlin.jvm")
-        plugin("maven-publish")
         plugin("signing")
+        plugin("maven-publish")
     }
-
-    group = parent!!.group
-    version = parent!!.version
 
     repositories {
         mavenLocal()
@@ -27,10 +26,14 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.jetbrains.kotlin", "kotlin-stdlib", "1.7.0")
+        with (Dependencies) {
+            kotlinModules.forEach {
+                implementation("org.jetbrains.kotlin", "kotlin-$it", KOTLIN)
+            }
 
-        testImplementation(platform("org.junit:junit-bom:5.8.2"))
-        testImplementation("org.junit.jupiter:junit-jupiter")
+            testImplementation(platform("org.junit:junit-bom:$JUPITER"))
+            testImplementation("org.junit.jupiter:junit-jupiter")
+        }
     }
 
     java {
@@ -45,6 +48,7 @@ subprojects {
     publishing.publications {
         create("mavenJava", MavenPublication::class.java) {
             from(components["java"])
+
             groupId = project.group.toString()
             version = project.version.toString()
 
