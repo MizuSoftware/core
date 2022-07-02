@@ -1,5 +1,4 @@
 plugins {
-    `java-library`
     kotlin("jvm") version Plugins.KOTLIN apply false
 
     signing
@@ -28,20 +27,20 @@ subprojects {
     dependencies {
         with (Dependencies) {
             kotlinModules.forEach {
-                implementation("org.jetbrains.kotlin", "kotlin-$it", KOTLIN)
+                "implementation"("org.jetbrains.kotlin", "kotlin-$it", KOTLIN)
             }
 
-            testImplementation(platform("org.junit:junit-bom:$JUPITER"))
-            testImplementation("org.junit.jupiter:junit-jupiter")
+            "testImplementation"(platform("org.junit:junit-bom:$JUPITER"))
+            "testImplementation"("org.junit.jupiter:junit-jupiter")
         }
     }
 
-    java {
+    configure<JavaPluginExtension> {
         withSourcesJar()
         withJavadocJar()
     }
 
-    tasks.test {
+    tasks.withType<Test> {
         useJUnitPlatform()
     }
 
