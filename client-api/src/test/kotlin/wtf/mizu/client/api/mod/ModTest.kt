@@ -1,4 +1,4 @@
-package wtf.mizu.client.api
+package wtf.mizu.client.api.mod
 
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
