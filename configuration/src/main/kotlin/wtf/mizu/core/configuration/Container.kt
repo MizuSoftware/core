@@ -1,4 +1,4 @@
-package wtf.mizu.core
+package wtf.mizu.core.configuration
 
 /**
  * An object that holds both child [Container] and [Setting] instances.

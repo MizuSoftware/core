@@ -1,4 +1,4 @@
-package wtf.mizu.core.clientapi.mod
+package wtf.mizu.client.api.mod
 
 import kotlin.reflect.KClass
 

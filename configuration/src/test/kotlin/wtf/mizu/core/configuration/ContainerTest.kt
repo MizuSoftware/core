@@ -2,9 +2,7 @@ package wtf.mizu.core.configuration
 
 import org.junit.jupiter.api.Assumptions.*
 import org.junit.jupiter.api.Test
-import wtf.mizu.core.Container
-import wtf.mizu.core.constraint.range
-import wtf.mizu.core.setting
+import wtf.mizu.core.configuration.constraint.range
 
 /**
  * Tests the [Container] class.

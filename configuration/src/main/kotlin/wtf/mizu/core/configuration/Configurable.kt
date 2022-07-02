@@ -1,4 +1,4 @@
-package wtf.mizu.core
+package wtf.mizu.core.configuration
 
 import wtf.mizu.core.common.Describable
 import wtf.mizu.core.common.Identifiable

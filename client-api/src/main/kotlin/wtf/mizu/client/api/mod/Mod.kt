@@ -1,6 +1,6 @@
-package wtf.mizu.core.clientapi.mod
+package wtf.mizu.client.api.mod
 
-import wtf.mizu.core.Container
+import wtf.mizu.core.configuration.Container
 
 import wtf.mizu.kawa.api.Listener
 import wtf.mizu.kawa.api.Subscription

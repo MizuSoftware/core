@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package wtf.mizu.core.constraint
+package wtf.mizu.core.configuration.constraint
 
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty

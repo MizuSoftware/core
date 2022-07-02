@@ -1,6 +1,6 @@
-package wtf.mizu.core.constraint
+package wtf.mizu.core.configuration.constraint
 
-import wtf.mizu.core.Setting
+import wtf.mizu.core.configuration.Setting
 
 /**
  * Coerces a [Comparable] value into a Kotlin [ClosedRange].

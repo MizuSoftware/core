@@ -1,6 +1,6 @@
-package wtf.mizu.core.constraint
+package wtf.mizu.core.configuration.constraint
 
-import wtf.mizu.core.Setting
+import wtf.mizu.core.configuration.Setting
 
 /**
  * An object that interferes when a [Setting.constrainedValue] has to be

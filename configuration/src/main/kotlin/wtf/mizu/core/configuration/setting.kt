@@ -1,7 +1,7 @@
-package wtf.mizu.core
+package wtf.mizu.core.configuration
 
-import wtf.mizu.core.constraint.Constrained
-import wtf.mizu.core.constraint.Constraint
+import wtf.mizu.core.configuration.constraint.Constrained
+import wtf.mizu.core.configuration.constraint.Constraint
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 

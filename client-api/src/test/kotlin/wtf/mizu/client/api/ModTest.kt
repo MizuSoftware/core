@@ -1,9 +1,9 @@
-package wtf.mizu.core.clientapi
+package wtf.mizu.client.api
 
 import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
-import wtf.mizu.core.clientapi.mod.Mod
-import wtf.mizu.core.setting
+import wtf.mizu.client.api.mod.Mod
+import wtf.mizu.core.configuration.setting
 import wtf.mizu.kawa.api.Subscription
 import wtf.mizu.kawa.dsl.on
 
