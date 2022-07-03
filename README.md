@@ -6,7 +6,7 @@
 ## Modules
 
 This repository is split into modules that serve a specific task by themselves. Everything you need to know
-about them is described in their specific README.md files. Here are the modules, in the import stack order.
+about them is described in their specific **README.md** files. Here are the modules, in the import stack order.
 
 - [common] (needs nothing)
 
