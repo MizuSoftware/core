@@ -4,7 +4,7 @@ dependencies {
 
     with(Dependencies) {
         arrayOf("api", "kotlin-listener-dsl").forEach {
-            api("wtf.mizu.kawa", it, KAWA)
+            implementation("wtf.mizu.kawa", it, KAWA)
         }
     }
 }

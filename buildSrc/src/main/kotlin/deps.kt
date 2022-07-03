@@ -22,5 +22,5 @@ object Dependencies {
     /**
      * Mizu's event bus.
      */
-    const val KAWA = "0.3.0"
+    const val KAWA = "0.3.1"
 }
