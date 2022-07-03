@@ -45,7 +45,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Deploy documentation
-        if: ${{ github.event_name == 'push' }  # Only deploy docs if we're pushing
+        if: ${{ github.event_name == 'push' }}  # Only deploy docs if we're pushing
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
