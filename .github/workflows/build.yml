@@ -41,11 +41,11 @@ jobs:
 
       - name: Extract branch name
         id: extract_branch
-        if: ${{ github.event_name == 'push' && runner.os == 'Linux' && matrix.java == '1.8' }}  # Only deploy docs once
+        if: ${{ github.event_name == 'push' }}  # Only deploy docs if we're pushing
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Deploy documentation
-        if: ${{ github.event_name == 'push' && runner.os == 'Linux' && matrix.java == '1.8' }}  # Only deploy docs once
+        if: ${{ github.event_name == 'push' }  # Only deploy docs if we're pushing
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
