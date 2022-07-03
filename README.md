@@ -8,13 +8,13 @@
 This repository is split into modules that serve a specific task by themselves. Everything you need to know
 about them is described in their specific README.md files. Here are the modules, in the import stack order.
 
-- [common]
+- [common] (needs nothing)
 
-- [configuration]
+- [service-loader] (needs nothing)
 
-- [client-api]
+- [configuration] (needs [common])
 
-- [service-loader]
+- [client-api] (needs [common], [configuration])
 
 
 ## Libraries
