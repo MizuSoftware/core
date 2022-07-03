@@ -7,6 +7,9 @@ import kotlin.reflect.KProperty
 
 /**
  * A [value] that is constrained using [Constraint] implementations.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 class Constrained<T : Any>(
     /**
@@ -21,10 +24,10 @@ class Constrained<T : Any>(
         hashMapOf(),
 ) {
     /**
-     * A property that gets applied each element from the [constraintMap]
-     * (if there are any) everytime its value is changed.
+     * A property that gets constrained using each element from the
+     * [constraintMap] (if there are any) everytime its value is changed.
      */
-    private var value: T = defaultValue
+    var value: T = defaultValue
         set(value) {
             if (constraintMap.isEmpty())
                 field = value
@@ -34,8 +37,16 @@ class Constrained<T : Any>(
                 }
         }
 
+    /**
+     * Syntactic sugar for getting the boxed [value].
+     *
+     * @return the [value].
+     */
     operator fun getValue(_this: Any?, _property: KProperty<*>): T = value
 
+    /**
+     * Syntactic sugar for setting the boxed [value].
+     */
     operator fun setValue(_this: Any?, _property: KProperty<*>, value: T) {
         this.value = value
     }
@@ -45,14 +56,18 @@ class Constrained<T : Any>(
      *
      * @param clazz the wanted constraint's class.
      *
-     * @return the wanted [Constraint] instance if used, `null` otherwise.
+     * @return the wanted [Constraint] instance if used by this [Constrained]
+     * instance, `null` otherwise.
      */
     fun <C : Constraint<T>> find(clazz: Class<C>): C? =
         constraintMap[clazz] as? C
 
     /**
      * Adds a new [Constraint] to this [Constrained] instance if no other
-     * [Constraint] from the same class exists. Otherwise, replaces it.
+     * [Constraint] from the same type exists. Otherwise, replaces it.
+     *
+     * @param constraint the new [Constraint] to add to this [Constrained]
+     *                   instance.
      *
      * @return this instance.
      */
@@ -69,7 +84,8 @@ class Constrained<T : Any>(
         this.remove(constraint::class)
 
     /**
-     * Removes the wanted [Constraint]'s class from this [Constrained] instance.
+     * Removes the wanted [Constraint]'s class from this [Constrained]
+     * instance.
      *
      * @return this instance.
      */
@@ -78,8 +94,8 @@ class Constrained<T : Any>(
     ): Constrained<T> = apply { constraintMap.remove(constraintClass) }
 
     /**
-     * Removes the wanted [Constraint]'s class from this [Constrained]
-     * instance.
+     * Syntactic sugar for removing the wanted [Constraint]'s class from this
+     * [Constrained] instance.
      *
      * @return this instance.
      */

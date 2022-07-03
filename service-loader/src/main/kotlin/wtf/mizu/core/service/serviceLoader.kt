@@ -4,16 +4,19 @@ import wtf.mizu.core.service.exception.UnimplementedServiceException
 import kotlin.reflect.KClass
 
 /**
- * Provides a simple [ServiceLoader] with only a few lines.
+ * An overly simplified [ServiceLoader].
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 @Suppress("UNCHECKED_CAST")
 object ServiceLoader {
     private val services = hashMapOf<Class<*>, Service<Any>>()
 
     /**
-     * Syntactic sugar around [find].
+     * Syntactic sugar around the [find] method.
      *
-     * @see [find]
+     * @see ServiceLoader.find
      */
     @JvmName("find")
     operator fun <T : Any> get(
@@ -21,9 +24,9 @@ object ServiceLoader {
     ): Service<out T> = find(serviceClass.java)
 
     /**
-     * Syntactic sugar around [assign].
+     * Syntactic sugar around the [assign] method.
      *
-     * @see [assign]
+     * @see ServiceLoader.assign
      */
     @JvmName("assign")
     operator fun <T : Any> set(serviceClass: KClass<out T>, impl: T) =
@@ -44,8 +47,8 @@ object ServiceLoader {
      *
      * @param serviceClass the wanted instance's class.
      *
-     * @throws UnimplementedServiceException if the service's implementation
-     *                                       isn't found
+     * @throws UnimplementedServiceException if the wanted service's
+     *                                       implementation could not be found.
      *
      * @return the instance, if found, or `null`.
      */
@@ -55,7 +58,10 @@ object ServiceLoader {
 }
 
 /**
- * Assigns the given [impl] to the [ServiceLoader] object.
+ * Assigns the given [serviceImplementation] to the [ServiceLoader] singleton.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
-infix fun <T : Any> Class<out T>.by(impl: T) =
-    ServiceLoader.assign(this, impl)
+infix fun <T : Any> Class<out T>.by(serviceImplementation: T) =
+    ServiceLoader.assign(this, serviceImplementation)

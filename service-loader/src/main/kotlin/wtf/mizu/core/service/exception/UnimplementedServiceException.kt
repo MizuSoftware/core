@@ -1,9 +1,9 @@
 package wtf.mizu.core.service.exception
 
 /**
- * Exception thrown when a service's implementation instance isn't found.
+ * Thrown when a service's implementation instance could not be found.
  *
- * @param [serviceClass]
+ * @param serviceClass the said service's class.
  *
  * @author xtrm
  * @since 0.0.1

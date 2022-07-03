@@ -17,29 +17,29 @@ import kotlin.reflect.KClass
  */
 interface ModService : MutableList<Mod> {
     /**
-     * Gets a [Mod] instance from its id.
+     * Gets a [Mod] instance from its [Mod.identifier].
      *
-     * @param modId the wanted mod's id.
+     * @param modIdentifier the wanted [Mod]'s identifier.
      *
-     * @return the wanted mod, or null if not found.
+     * @return the wanted [Mod] instance if found, `null` otherwise.
      */
-    operator fun get(modId: String): Mod?
+    operator fun get(modIdentifier: String): Mod?
 
     /**
-     * Gets a [Mod] instance from its class.
+     * Gets a [Mod] instance from its [Class].
      *
-     * @param modClass the wanted mod's class.
+     * @param modClass the wanted [Mod]'s [Class].
      *
-     * @return the wanted mod, or null if not found.
+     * @return the wanted [Mod] instance if found, `null` otherwise.
      */
     operator fun get(modClass: Class<out Mod>): Mod?
 
     /**
-     * Gets a [Mod] instance from its Kotlin class.
+     * Gets a [Mod] instance from its [Kotlin class][KClass].
      *
-     * @param modKlass the wanted mod's Kotlin class.
+     * @param modKlass the wanted mod's [Kotlin class][KClass].
      *
-     * @return the wanted mod, or null if not found.
+     * @return the wanted [Mod] instance if found, `null` otherwise.
      */
     operator fun get(modKlass: KClass<out Mod>): Mod? = this[modKlass.java]
 }

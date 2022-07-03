@@ -8,4 +8,4 @@ package wtf.mizu.core.common
  * @author Shyrogan
  * @since 0.0.1
  */
-val IDENTIFIER_PATTERN = "^[a-z][a-z._]+[a-z]\$".toRegex()
+val IDENTIFIER_PATTERN: Regex = "^[a-z][a-z._]+[a-z]\$".toRegex()

@@ -5,10 +5,10 @@ import kotlin.reflect.KProperty
 /**
  * Delegates an implementation for the provided service.
  *
- * @param T The service type.
+ * @param T the service type.
  *
- * @property serviceClass The service class.
- * @property impl The service's implementation instance.
+ * @property serviceClass the service class.
+ * @property impl the service's implementation instance.
  *
  * @author Shyrogan
  * @since 0.0.1

@@ -21,9 +21,9 @@ import wtf.mizu.kawa.api.Subscription
  * @since 0.0.1
  */
 abstract class Mod(
-    id: String,
-    desc: String = "$id.desc",
-) : Listener, Container(id, desc) {
+    identifier: String,
+    descriptionIdentifier: String = "$identifier.desc",
+) : Listener, Container(identifier, descriptionIdentifier) {
     private val subscriptions: MutableMap<Class<*>, List<Subscription<*>>>
             by lazy { hashMapOf() }
 

@@ -2,6 +2,9 @@ package wtf.mizu.core.configuration
 
 /**
  * An object that holds both child [Container] and [Setting] instances.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 open class Container(
     override val identifier: String,
@@ -28,6 +31,8 @@ open class Container(
      *
      * @return the newly created [Container].
      */
-    fun container(id: String, desc: String = "$id.desc") =
-        Container(id, desc).also(this::add)
+    fun container(
+        identifier: String,
+        description: String = "$identifier.desc"
+    ) = Container(identifier, description).also(this::add)
 }

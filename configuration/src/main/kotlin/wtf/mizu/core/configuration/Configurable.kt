@@ -11,6 +11,9 @@ import wtf.mizu.core.common.Identifiable
  *
  * You might also store a [Container] which simply implements the
  * [Configurable] interface.
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 interface Configurable : Identifiable, Describable {
     /**

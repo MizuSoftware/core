@@ -6,13 +6,16 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 /**
- * An extension of [Container] that holds a [constrainedValue].
+ * An [Container] extension that holds a [constrainedValue].
+ *
+ * @author Shyrogan
+ * @since 0.0.1
  */
 class Setting<T : Any>(
-    id: String,
-    desc: String = "$id.desc",
-    value: T
-) : Container(id, desc) {
+    identifier: String,
+    descriptionIdentifier: String = "$identifier.desc",
+    value: T,
+) : Container(identifier, descriptionIdentifier) {
     private var constrainedValue = Constrained(value)
     var value by constrainedValue
 
@@ -64,23 +67,28 @@ class Setting<T : Any>(
  * Creates and registers a new [Setting] in this container.
  */
 fun <T : Any> Container.setting(
-    id: String, desc: String = "$id.desc", value: T
-) = Setting(id, desc, value).also(this::add)
+    identifier: String,
+    descriptionIdentifier: String = "$identifier.desc",
+    value: T,
+) = Setting(identifier, descriptionIdentifier, value).also(this::add)
 
 /**
  * Creates and registers a new [Setting] in this container.
  */
 fun <T : Any> Container.setting(
-    id: String, value: T
-) = Setting(id, descriptionIdentifier, value).also(this::add)
+    identifier: String,
+    value: T,
+) = Setting(identifier, descriptionIdentifier, value).also(this::add)
 
 /**
  * Creates and registers a new [Setting] in this container.
  */
 inline fun <T : Any> Container.setting(
-    id: String, desc: String = "$id.desc", value: T,
+    identifier: String,
+    descriptionIdentifier: String = "$identifier.desc",
+    value: T,
     crossinline block: Setting<T>.() -> Unit = {}
-) = Setting(id, desc, value)
+) = Setting(identifier, descriptionIdentifier, value)
     .apply(block)
     .also(this::add)
 
@@ -88,8 +96,8 @@ inline fun <T : Any> Container.setting(
  * Creates and registers a new [Setting] in this container.
  */
 inline fun <T : Any> Container.setting(
-    id: String, value: T,
+    identifier: String, value: T,
     crossinline block: Setting<T>.() -> Unit = {}
-) = Setting(id, descriptionIdentifier, value)
+) = Setting(identifier, descriptionIdentifier, value)
     .apply(block)
     .also(this::add)
