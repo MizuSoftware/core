@@ -1,9 +1,11 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URL
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+
+import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
+import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     with(Plugins) {
@@ -70,47 +72,27 @@ subprojects {
         }
     }
 
+    val actualJavaVersion = if (JAVA_VERSION <= 10) "1.$JAVA_VERSION" else "$JAVA_VERSION"
+
     configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.valueOf("VERSION_$JAVA_VERSION")
+        sourceCompatibility = JavaVersion.valueOf(
+            "VERSION_${actualJavaVersion.replace(".", "_")}"
+        )
         targetCompatibility = sourceCompatibility
     }
 
     tasks {
-        withType<Test> {
-            useJUnitPlatform()
-        }
-
         withType<JavaCompile> {
-            options.release.set(JAVA_VERSION)
+            sourceCompatibility = actualJavaVersion
+            targetCompatibility = actualJavaVersion
         }
 
         withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = "$JAVA_VERSION"
+            kotlinOptions.jvmTarget = actualJavaVersion
         }
 
-        withType<DokkaTaskPartial>().configureEach {
-            dokkaSourceSets.configureEach {
-                displayName.set("${Coordinates.name}/${project.name} on ${Coordinates.gitHost}")
-
-                skipDeprecated.set(false)
-                includeNonPublic.set(false)
-                skipEmptyPackages.set(true)
-                reportUndocumented.set(true)
-                suppressObviousFunctions.set(true)
-
-                // Link the source to the documentation
-                sourceLink {
-                    localDirectory.set(file("src"))
-                    remoteUrl.set(URL("${Coordinates.gitUrl}/tree/${Coordinates.mainGitBranch}/${project.name}/src"))
-                }
-
-                /**
-                 * @see config.Dokka.externalDocumentations
-                 */
-                config.Dokka.externalDocumentations.forEach {
-                    externalDocumentationLink { url.set(URL(it)) }
-                }
-            }
+        withType<Test> {
+            useJUnitPlatform()
         }
 
         withType<Jar> {
@@ -126,26 +108,27 @@ subprojects {
 
             with(Coordinates) {
                 manifest.attributes(
-                    "Name" to group.replace(".", "/") + "/",
+                    "Name" to group.replace(".", "/") + "/" + project.name + "/",
 
                     "Created-By" to "$javaVersion ($javaVendor $javaVmVersion)",
                     "Build-Date" to buildDate,
                     "Build-Time" to buildTime,
                     "Build-Revision" to buildRevision,
 
-                    "Specification-Title" to "$name:${project.name}",
+                    "Specification-Title" to project.name,
                     "Specification-Version" to prettyProjectVersion,
                     "Specification-Vendor" to vendor,
 
-                    "Implementation-Title" to project.name,
+                    "Implementation-Title" to "$name-${project.name}",
                     "Implementation-Version" to buildRevision,
                     "Implementation-Vendor" to vendor,
 
-                    "Bundle-Name" to name,
-                    "Bundle-Description" to description,
+                    "Bundle-Name" to "$name-${project.name}",
+                    // the README.md file always contains the module description on its 3rd line.
+                    "Bundle-Description" to projectDir.resolve("README.md").readLines()[2],
                     "Bundle-DocURL" to gitUrl,
                     "Bundle-Vendor" to vendor,
-                    "Bundle-SymbolicName" to "$group.$name",
+                    "Bundle-SymbolicName" to "$group.${project.name}",
                 )
             }
 
@@ -160,6 +143,43 @@ subprojects {
             from(sourceSets["main"].allSource)
 
             from("LICENSE")
+        }
+
+        withType<DokkaTask>().configureEach {
+            moduleName.set("${Coordinates.name}-${project.name}")
+        }
+
+        withType<DokkaTaskPartial>().configureEach {
+            moduleName.set(project.name)
+
+            dokkaSourceSets.configureEach {
+                includes.from(projectDir.resolve("README.md"))
+
+                displayName.set("${Coordinates.name}/${moduleName.get()} on ${Coordinates.gitHost}")
+
+                skipDeprecated.set(false)
+                includeNonPublic.set(false)
+                skipEmptyPackages.set(true)
+                reportUndocumented.set(true)
+                suppressObviousFunctions.set(true)
+
+                // Link the source to the documentation
+                sourceLink {
+                    localDirectory.set(file("src"))
+                    remoteUrl.set(
+                        URL(
+                            "${Coordinates.gitUrl}/tree/${Coordinates.mainGitBranch}/${project.name}/src"
+                        )
+                    )
+                }
+
+                /**
+                 * @see config.Dokka.externalDocumentations
+                 */
+                config.Dokka.externalDocumentations.forEach {
+                    externalDocumentationLink { url.set(URL(it)) }
+                }
+            }
         }
 
         // The Javadoc artifact, containing the Dokka output and the LICENSE file.
@@ -227,30 +247,16 @@ subprojects {
     }
 }
 
-afterEvaluate {
-    tasks.dokkaHtmlMultiModule {
-        val moduleFile = File(
-            projectDir,
-            "MODULE.temp.${java.util.UUID.randomUUID()}.md"
-        )
-
-        // In order to have a description on the rendered docs, we have to have
-        // a file with the # Module thingy in it. That's what we're
-        // automagically creating and deleting here.
-        run {
-            doFirst {
-                moduleFile.deleteOnExit()
-                moduleFile.writeText(
-                    "# ${Coordinates.name}\n${Coordinates.description}"
-                )
-            }
-
-            doLast { moduleFile.delete() }
-        }
-
-        moduleName.set(Coordinates.name)
-        includes.from(moduleFile.path)
+tasks.withType<DokkaMultiModuleTask>().configureEach {
+    val moduleFile = File(
+        temporaryDir,
+        "MODULE.${java.util.UUID.randomUUID()}.md"
+    ).apply {
+        writeText("# ${Coordinates.name} by ${Coordinates.vendor}\n${Coordinates.description}\n<a href=\"${Coordinates.gitUrl}\">Source</a>")
     }
+
+    moduleName.set(Coordinates.name)
+    includes.from(moduleFile)
 }
 
 // Configure publishing to Maven Central
@@ -262,8 +268,7 @@ nexusPublishing.repositories.sonatype {
         )
     )
 
-    // Skip this step if environment variables NEXUS_USERNAME or NEXUS_PASSWORD
-    // aren't set.
+    // Skip this step if environment variables NEXUS_USERNAME or NEXUS_PASSWORD aren't set.
     username.set(properties["NEXUS_USERNAME"] as? String ?: return@sonatype)
     password.set(properties["NEXUS_PASSWORD"] as? String ?: return@sonatype)
 }

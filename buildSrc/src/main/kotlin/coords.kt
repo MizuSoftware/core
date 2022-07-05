@@ -1,7 +1,7 @@
 const val JAVA_VERSION: Int = 17
 
 object Coordinates {
-    const val name = "core"
+    const val name = "Core"
     const val description = "Mizu Client's core monolithic repository."
     const val vendor = "Mizu Software"
 
