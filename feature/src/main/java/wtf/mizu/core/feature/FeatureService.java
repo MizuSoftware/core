@@ -2,6 +2,7 @@ package wtf.mizu.core.feature;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+import wtf.mizu.core.common.Identifiable;
 
 import java.util.List;
 
@@ -21,26 +22,26 @@ public interface FeatureService {
      * @return the features
      */
     @Unmodifiable
-    List<Feature> features();
+    List<Identifiable> features();
 
     /**
-     * Finds given {@link Feature feature's container} from its type.
+     * Finds given {@link Identifiable feature's container} from its type.
      *
      * @param type the container's type
      * @return the container
      * @param <T> the container's type
      */
     @Nullable
-    <T extends Feature> T find(Class<T> type);
+    <T extends Identifiable> T find(Class<T> type);
 
     /**
-     * Finds given {@link Feature feature's container} from its id.
+     * Finds given {@link Identifiable feature's container} from its id.
      *
      * @param id the container's type
      * @return the container
      * @param <T> the container's type
      */
     @Nullable
-    <T extends Feature> T find(String id);
+    <T extends Identifiable> T find(String id);
 
 }
