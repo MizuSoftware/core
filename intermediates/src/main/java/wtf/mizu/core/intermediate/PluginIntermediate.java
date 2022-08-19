@@ -29,12 +29,14 @@ public class PluginIntermediate implements ContainerProcessingIntermediate {
         builder.addSuperinterface(Describable.class);
 
         builder.addMethod(MethodSpec.methodBuilder("id")
+                .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
                 .addStatement("return $L", id)
                 .build());
 
         builder.addMethod(MethodSpec.methodBuilder("description")
+                .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
                 .addStatement("return $L", desc)
