@@ -1,4 +1,4 @@
-package wtf.mizu.core.common.annotation;
+package wtf.mizu.core.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

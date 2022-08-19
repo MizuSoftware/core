@@ -5,8 +5,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import wtf.mizu.core.common.Describable;
 import wtf.mizu.core.common.Identifiable;
-import wtf.mizu.core.common.annotation.Plugin;
-import wtf.mizu.core.feature.Feature;
+import wtf.mizu.core.common.Plugin;
 import wtf.mizu.oshanraina.intermediate.ContainerProcessingIntermediate;
 
 import javax.lang.model.element.Element;
