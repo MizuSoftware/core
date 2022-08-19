@@ -17,6 +17,14 @@ import java.util.List;
 public interface FeatureService {
 
     /**
+     * The {@link Identifiable plugin container} of the plugin that manages
+     * this {@link FeatureService}.
+     *
+     * @return the {@link Identifiable plugin container}
+     */
+    Identifiable plugin();
+
+    /**
      * Returns a list of the features available in this service.
      *
      * @return the features
