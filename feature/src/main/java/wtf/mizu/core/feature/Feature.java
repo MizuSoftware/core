@@ -1,4 +1,4 @@
-package wtf.mizu.core.common.annotation;
+package wtf.mizu.core.feature;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,10 +8,10 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 @Target(ElementType.TYPE)
 @Retention(SOURCE)
-public @interface Plugin {
+public @interface Feature {
 
     /**
-     * A <b>unique</b> string used to identify this plugin.
+     * A <b>unique</b> string used to identify this feature.
      * <p>
      * To maintain a consistency between ids, those <i>must</i>
      * comply  with the regex expression such as coded into the
@@ -34,7 +34,7 @@ public @interface Plugin {
 
 
     /**
-     * A <b>non-unique</b> string used to describe this plugin.
+     * A <b>non-unique</b> string used to describe this feature.
      * <p>
      * To maintain a consistency between descriptions, those <i>must</i>
      * comply  with the regex expression such as coded into the
