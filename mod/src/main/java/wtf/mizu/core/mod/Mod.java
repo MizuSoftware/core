@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface Mod {
 
     /**
-     * A <b>unique</b> string used to identify this feature.
+     * A <b>unique</b> string used to identify this mod.
      * <p>
      * To maintain a consistency between ids, those <i>must</i>
      * comply  with the regex expression such as coded into the
@@ -34,7 +34,7 @@ public @interface Mod {
 
 
     /**
-     * A <b>non-unique</b> string used to describe this feature.
+     * A <b>non-unique</b> string used to describe this mod.
      * <p>
      * To maintain a consistency between descriptions, those <i>must</i>
      * comply  with the regex expression such as coded into the

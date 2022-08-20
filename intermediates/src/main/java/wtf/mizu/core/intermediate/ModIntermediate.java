@@ -18,13 +18,13 @@ public class ModIntermediate implements ContainerProcessingIntermediate {
     @Override
     public void process(TypeSpec.Builder builder, Element element, ClassName className) throws Exception {
         // TODO (@lambdagg): inference
-        final var feature = element.getAnnotation(Mod.class);
-        if(feature == null) return;
-        final var id = feature.value().equalsIgnoreCase("<INFERENCE>") ?
+        final var mod = element.getAnnotation(Mod.class);
+        if(mod == null) return;
+        final var id = mod.value().equalsIgnoreCase("<INFERENCE>") ?
                 element.getSimpleName().toString().toLowerCase()
-                : feature.value();
-        final var desc = feature.description().equalsIgnoreCase("<INFERENCE>") ?
-                id + ".desc" : feature.description();
+                : mod.value();
+        final var desc = mod.description().equalsIgnoreCase("<INFERENCE>") ?
+                id + ".desc" : mod.description();
 
         builder.addSuperinterface(Identifiable.class);
         builder.addSuperinterface(Describable.class);

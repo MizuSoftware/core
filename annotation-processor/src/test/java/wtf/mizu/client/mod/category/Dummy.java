@@ -1,4 +1,4 @@
-package wtf.mizu.client.feature.category;
+package wtf.mizu.client.mod.category;
 
 import wtf.mizu.core.mod.Mod;
 

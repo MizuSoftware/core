@@ -1,9 +1,9 @@
-package wtf.mizu.client.feature;
+package wtf.mizu.client.mod;
 
 import com.google.auto.service.AutoService;
 import org.jetbrains.annotations.Nullable;
 import wtf.mizu.client.MizuPlugin;
-import wtf.mizu.client.feature.category.DummyFeature;
+import wtf.mizu.client.mod.category.DummyMod;
 import wtf.mizu.core.common.Identifiable;
 import wtf.mizu.core.mod.ModService;
 
@@ -12,13 +12,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * This is a simple implementation of the {@link ModService feature
+ * This is a simple implementation of the {@link ModService mod
  * service}.
  * <p>
  * Using Google's {@link AutoService} annotation, we don't have to do
  * anything except annotate the class for it to work properly.
  * <p>
- * The {@code features instances} are loaded inside the {@link this#features}
+ * The {@code mod instances} are loaded inside the {@link this#mods}
  * list and then {@link Map} to retrieve them are generated from it.
  */
 @SuppressWarnings("ALL")
@@ -26,22 +26,22 @@ import java.util.stream.Collectors;
 public final class MizuModService implements ModService {
 
     /**
-     * The {@link Identifiable features} list.
+     * The {@link Identifiable mods} list.
      */
-    private final List<Identifiable> features = List.of(
-        new DummyFeature()
+    private final List<Identifiable> mods = List.of(
+        new DummyMod()
     );
 
     /**
-     * A map that associates each {@link Identifiable feature} to its id.
+     * A map that associates each {@link Identifiable mod} to its id.
      */
-    private final Map<String, Identifiable> idToFeature = features.stream()
+    private final Map<String, Identifiable> idToMod = mods.stream()
             .collect(Collectors.toMap(Identifiable::id, v -> v));
 
     /**
-     * A map that associates each {@link Identifiable feature} to its class.
+     * A map that associates each {@link Identifiable mod} to its class.
      */
-    private final Map<Class<?>, Identifiable> classToFeature = features.stream()
+    private final Map<Class<?>, Identifiable> classToMod = mods.stream()
             .collect(Collectors.toMap(Object::getClass, v -> v));
 
     /**
@@ -58,8 +58,8 @@ public final class MizuModService implements ModService {
      * {@inheritDoc}
      */
     @Override
-    public List<Identifiable> features() {
-        return features;
+    public List<Identifiable> mods() {
+        return mods;
     }
 
     /**
@@ -67,7 +67,7 @@ public final class MizuModService implements ModService {
      */
     @Override
     public <T extends Identifiable> @Nullable T find(String id) {
-        return (T) idToFeature.get(id);
+        return (T) idToMod.get(id);
     }
 
     /**
@@ -75,6 +75,6 @@ public final class MizuModService implements ModService {
      */
     @Override
     public <T extends Identifiable> @Nullable T find(Class<T> type) {
-        return (T) classToFeature.get(type);
+        return (T) classToMod.get(type);
     }
 }

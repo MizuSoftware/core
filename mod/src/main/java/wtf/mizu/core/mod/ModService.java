@@ -7,10 +7,10 @@ import wtf.mizu.core.common.Identifiable;
 import java.util.List;
 
 /**
- * A {@link ModService} contains and manages a list of features.
+ * A {@link ModService} contains and manages a list of mods.
  *
  * <p>
- *     Features are the object responsible of interacting with the game. They
+ *     Mods are the object responsible of interacting with the game. They
  *     do it through events and <b>only through events</b>.
  * </p>
  */
@@ -25,15 +25,15 @@ public interface ModService {
     Identifiable plugin();
 
     /**
-     * Returns a list of the features available in this service.
+     * Returns a list of the mods available in this service.
      *
-     * @return the features
+     * @return the mods
      */
     @Unmodifiable
-    List<Identifiable> features();
+    List<Identifiable> mods();
 
     /**
-     * Finds given {@link Identifiable feature's container} from its type.
+     * Finds given {@link Identifiable mod's container} from its type.
      *
      * @param type the container's type
      * @return the container
@@ -43,7 +43,7 @@ public interface ModService {
     <T extends Identifiable> T find(Class<T> type);
 
     /**
-     * Finds given {@link Identifiable feature's container} from its id.
+     * Finds given {@link Identifiable mod's container} from its id.
      *
      * @param id the container's type
      * @return the container
