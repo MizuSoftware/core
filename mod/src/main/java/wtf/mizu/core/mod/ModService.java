@@ -1,4 +1,4 @@
-package wtf.mizu.core.feature;
+package wtf.mizu.core.mod;
 
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
@@ -7,18 +7,18 @@ import wtf.mizu.core.common.Identifiable;
 import java.util.List;
 
 /**
- * A {@link FeatureService} contains and manages a list of features.
+ * A {@link ModService} contains and manages a list of features.
  *
  * <p>
  *     Features are the object responsible of interacting with the game. They
  *     do it through events and <b>only through events</b>.
  * </p>
  */
-public interface FeatureService {
+public interface ModService {
 
     /**
      * The {@link Identifiable plugin container} of the plugin that manages
-     * this {@link FeatureService}.
+     * this {@link ModService}.
      *
      * @return the {@link Identifiable plugin container}
      */

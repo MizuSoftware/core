@@ -1,4 +1,4 @@
-package wtf.mizu.core.feature;
+package wtf.mizu.core.mod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,7 +8,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 @Target(ElementType.TYPE)
 @Retention(SOURCE)
-public @interface Feature {
+public @interface Mod {
 
     /**
      * A <b>unique</b> string used to identify this feature.

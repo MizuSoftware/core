@@ -5,14 +5,14 @@ import org.jetbrains.annotations.Nullable;
 import wtf.mizu.client.MizuPlugin;
 import wtf.mizu.client.feature.category.DummyFeature;
 import wtf.mizu.core.common.Identifiable;
-import wtf.mizu.core.feature.FeatureService;
+import wtf.mizu.core.mod.ModService;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * This is a simple implementation of the {@link FeatureService feature
+ * This is a simple implementation of the {@link ModService feature
  * service}.
  * <p>
  * Using Google's {@link AutoService} annotation, we don't have to do
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  * list and then {@link Map} to retrieve them are generated from it.
  */
 @SuppressWarnings("ALL")
-@AutoService(FeatureService.class)
-public final class MizuFeatureService implements FeatureService {
+@AutoService(ModService.class)
+public final class MizuModService implements ModService {
 
     /**
      * The {@link Identifiable features} list.

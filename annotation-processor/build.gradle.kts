@@ -8,7 +8,7 @@ dependencies {
     annotationProcessor("com.google.auto.service:auto-service:1.0.1")
     implementation("wtf.mizu", "oshanraina", "0.1.0")
     implementation(project(":common"))
-    implementation(project(":feature"))
+    implementation(project(":mod"))
     implementation(project(":intermediates"))
 
     testAnnotationProcessor(project(":annotation-processor"))
