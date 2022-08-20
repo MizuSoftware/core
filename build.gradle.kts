@@ -18,8 +18,8 @@ subprojects {
     apply(plugin = "java-library")
 
     dependencies {
-        implementation("com.google.guava", "guava", "31.1-jre")
-        implementation("org.jetbrains", "annotations", "23.0.0")
+        api("com.google.guava", "guava", "31.1-jre")
+        api("org.jetbrains", "annotations", "23.0.0")
     }
 }
 

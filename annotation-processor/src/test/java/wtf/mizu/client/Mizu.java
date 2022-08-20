@@ -5,6 +5,4 @@ import wtf.mizu.core.common.Plugin;
 @Plugin
 public class Mizu {
 
-
-
 }

@@ -4,8 +4,7 @@ repositories {
 }
 
 dependencies {
-    implementation("wtf.mizu", "oshanraina", "0.1.0")
-    implementation(project(":common"))
-    implementation(project(":mod"))
-    implementation("com.squareup", "javapoet", "1.13.0")
+    api("wtf.mizu", "oshanraina", "0.1.0")
+    api(project(":mod"))
+    api("com.squareup", "javapoet", "1.13.0")
 }
