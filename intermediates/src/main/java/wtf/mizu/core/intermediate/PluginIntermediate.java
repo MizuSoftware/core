@@ -1,6 +1,7 @@
 package wtf.mizu.core.intermediate;
 
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import wtf.mizu.core.common.Describable;
@@ -10,8 +11,9 @@ import wtf.mizu.oshanraina.intermediate.ContainerProcessingIntermediate;
 
 import javax.lang.model.element.Element;
 
-import static javax.lang.model.element.Modifier.FINAL;
-import static javax.lang.model.element.Modifier.PUBLIC;
+import static javax.lang.model.element.Modifier.*;
+import static javax.lang.model.element.Modifier.STATIC;
+import static wtf.mizu.core.intermediate.SingletonIntermediate.JAVADOC;
 
 public class PluginIntermediate implements ContainerProcessingIntermediate {
 
@@ -21,7 +23,8 @@ public class PluginIntermediate implements ContainerProcessingIntermediate {
         final var plugin = element.getAnnotation(Plugin.class);
         if(plugin == null) return;
         final var id = plugin.value().equalsIgnoreCase("<INFERENCE>") ?
-                className.simpleName().toLowerCase() : plugin.value();
+                element.getSimpleName().toString().toLowerCase()
+                : plugin.value();
         final var desc = plugin.description().equalsIgnoreCase("<INFERENCE>") ?
                 id + ".desc" : plugin.description();
 
@@ -32,14 +35,26 @@ public class PluginIntermediate implements ContainerProcessingIntermediate {
                 .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
-                .addStatement("return $L", id)
+                .addStatement("return \"$L\"", id)
                 .build());
 
         builder.addMethod(MethodSpec.methodBuilder("description")
                 .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
-                .addStatement("return $L", desc)
+                .addStatement("return \"$L\"", desc)
+                .build());
+
+        builder.addField(FieldSpec.builder(className, "INSTANCE", PRIVATE,
+                        STATIC, FINAL)
+                .addJavadoc(JAVADOC)
+                .initializer("new $T()", className)
+                .build());
+        builder.addMethod(MethodSpec.methodBuilder("instance")
+                .addJavadoc(JAVADOC)
+                .addModifiers(PUBLIC, STATIC, FINAL)
+                .returns(className)
+                .addStatement("return INSTANCE")
                 .build());
     }
 

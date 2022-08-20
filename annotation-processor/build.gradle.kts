@@ -10,4 +10,6 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":feature"))
     implementation(project(":intermediates"))
+
+    testAnnotationProcessor(project(":annotation-processor"))
 }

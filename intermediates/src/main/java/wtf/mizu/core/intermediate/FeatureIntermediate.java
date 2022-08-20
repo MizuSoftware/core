@@ -22,7 +22,8 @@ public class FeatureIntermediate implements ContainerProcessingIntermediate {
         final var feature = element.getAnnotation(Feature.class);
         if(feature == null) return;
         final var id = feature.value().equalsIgnoreCase("<INFERENCE>") ?
-                className.simpleName().toLowerCase() : feature.value();
+                element.getSimpleName().toString().toLowerCase()
+                : feature.value();
         final var desc = feature.description().equalsIgnoreCase("<INFERENCE>") ?
                 id + ".desc" : feature.description();
 
@@ -33,14 +34,14 @@ public class FeatureIntermediate implements ContainerProcessingIntermediate {
                 .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
-                .addStatement("return $L", id)
+                .addStatement("return \"$L\"", id)
                 .build());
 
         builder.addMethod(MethodSpec.methodBuilder("description")
                 .addJavadoc("{@inheritDoc}")
                 .addModifiers(PUBLIC, FINAL)
                 .returns(String.class)
-                .addStatement("return $L", desc)
+                .addStatement("return \"$L\"", desc)
                 .build());
     }
 

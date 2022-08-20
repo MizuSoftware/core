@@ -3,6 +3,8 @@ package wtf.mizu.core.ap;
 import com.google.auto.service.AutoService;
 import wtf.mizu.core.common.Plugin;
 import wtf.mizu.core.intermediate.PluginIntermediate;
+import wtf.mizu.core.intermediate.SameMethodIntermediate;
+import wtf.mizu.core.intermediate.SingletonIntermediate;
 import wtf.mizu.oshanraina.ContainerProcessingPipeline;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -25,6 +27,7 @@ public final class PluginAnnotationProcessor extends AbstractProcessor {
             ContainerProcessingPipeline.builder(Plugin.class)
                     .initialization(withSuffix("Plugin"))
                     .then(new PluginIntermediate())
+                    .then(new SameMethodIntermediate())
                     .writing(usingJavaPoet(processingEnv))
                     .create()
                     .tryProcessing(roundEnv);
