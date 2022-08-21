@@ -2,7 +2,6 @@ package wtf.mizu.client.mod;
 
 import com.google.auto.service.AutoService;
 import org.jetbrains.annotations.Nullable;
-import wtf.mizu.client.MizuPlugin;
 import wtf.mizu.client.mod.category.DummyMod;
 import wtf.mizu.core.common.Identifiable;
 import wtf.mizu.core.mod.ModService;
@@ -10,6 +9,8 @@ import wtf.mizu.core.mod.ModService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static wtf.mizu.client.Mizu.mizu;
 
 /**
  * This is a simple implementation of the {@link ModService mod
@@ -51,7 +52,7 @@ public final class MizuModService implements ModService {
      */
     @Override
     public Identifiable plugin() {
-        return MizuPlugin.instance();
+        return mizu.plugin();
     }
 
     /**

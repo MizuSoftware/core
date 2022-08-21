@@ -1,4 +1,4 @@
-package wtf.mizu.core.common;
+package wtf.mizu.core.common.plugin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,13 +24,13 @@ public @interface Plugin {
      * {@code domain.object.more}
      * {@code domain.object.more.even_more}
      * <p>
-     * By default, the value is {@code <INFERENCE>} telling the annotation
+     * By default, the value is {@code <auto>} telling the annotation
      * processor to figure out a value using the class' name.
      *
      * @author Shyrogan
      * @since 0.0.1
      */
-    String value() default "<INFERENCE>";
+    String value() default "<auto>";
 
 
     /**
@@ -47,12 +47,12 @@ public @interface Plugin {
      * {@code domain.object.more}
      * {@code domain.object.more.even_more}
      * <p>
-     * By default, the value is {@code <INFERENCE>} telling the annotation
+     * By default, the value is {@code <auto>} telling the annotation
      * processor to figure out a value using the class' name.
      *
      * @author Shyrogan
      * @since 0.0.1
      */
-    String description() default "<INFERENCE>";
+    String description() default "<auto>";
 
 }

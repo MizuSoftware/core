@@ -24,13 +24,13 @@ public @interface Mod {
      * {@code domain.object.more}
      * {@code domain.object.more.even_more}
      * <p>
-     * By default, the value is {@code <INFERENCE>} telling the annotation
+     * By default, the value is {@code <auto>} telling the annotation
      * processor to figure out a value using the class' name.
      *
      * @author Shyrogan
      * @since 0.0.1
      */
-    String value() default "<INFERENCE>";
+    String value() default "<auto>";
 
 
     /**
@@ -47,12 +47,12 @@ public @interface Mod {
      * {@code domain.object.more}
      * {@code domain.object.more.even_more}
      * <p>
-     * By default, the value is {@code <INFERENCE>} telling the annotation
+     * By default, the value is {@code <auto>} telling the annotation
      * processor to figure out a value using the class' name.
      *
      * @author Shyrogan
      * @since 0.0.1
      */
-    String description() default "<INFERENCE>";
+    String description() default "<auto>";
 
 }
