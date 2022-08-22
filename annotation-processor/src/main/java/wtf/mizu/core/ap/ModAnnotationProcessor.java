@@ -26,7 +26,7 @@ public final class ModAnnotationProcessor extends AbstractProcessor {
             ContainerProcessingPipeline.builder(Mod.class)
                     .initialization(withSuffix("Mod"))
                     .then(new ContainerIntermediate())
-                    .then(new ModIntermediate(APluginAnnotationProcessor.container))
+                    .then(new ModIntermediate(AheadPluginAnnotationProcessor.container()))
                     .writing(usingJavaPoet(processingEnv))
                     .create()
                     .tryProcessing(processingEnv, roundEnv);

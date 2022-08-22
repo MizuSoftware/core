@@ -16,15 +16,20 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
+/**
+ * The {@link AheadPluginAnnotationProcessor} takes the first element
+ * annotated with the {@link Plugin} annotation and stores it as the
+ * container for future processing.
+ */
 @AutoService(Processor.class)
 @SupportedAnnotationTypes("wtf.mizu.core.common.plugin.Plugin")
-public final class APluginAnnotationProcessor extends AbstractProcessor {
+public final class AheadPluginAnnotationProcessor extends AbstractProcessor {
 
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .create();
 
-    public static PluginContainer container;
+    private static PluginContainer container;
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -57,5 +62,14 @@ public final class APluginAnnotationProcessor extends AbstractProcessor {
         }
 
         return true;
+    }
+
+    /**
+     * Returns the current plugin's {@link PluginContainer container} processed.
+     *
+     * @return the container
+     */
+    public static PluginContainer container() {
+        return container;
     }
 }
