@@ -36,8 +36,8 @@ public class ModIntermediate implements ContainerProcessingIntermediate {
         final var mod = element.getAnnotation(Mod.class);
         if(mod == null) return;
         final var id = mod.value().equalsIgnoreCase("<auto>") ?
-                element.getSimpleName().toString().toLowerCase()
-                : mod.value();
+                element.getSimpleName().toString().toLowerCase() :
+                mod.value();
         final var desc = mod.description().equalsIgnoreCase("<auto>") ?
                 id + ".desc" : mod.description();
 

@@ -33,27 +33,22 @@ public final class AheadPluginAnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        for(final var e: roundEnv.getElementsAnnotatedWith(Plugin.class)) {
+        for (final var e : roundEnv.getElementsAnnotatedWith(Plugin.class)) {
             final var plugin = e.getAnnotation(Plugin.class);
             final var id = plugin.value().equalsIgnoreCase("<auto>") ?
-                    e.getSimpleName().toString().toLowerCase()
-                    : plugin.value();
+                    e.getSimpleName().toString().toLowerCase() :
+                    plugin.value();
             final var desc = plugin.description().equalsIgnoreCase("<auto>") ?
-                    id + ".desc" : plugin.description();
+                    id + ".desc" :
+                    plugin.description();
 
             final Writer writer;
             try {
                 writer = processingEnv.getFiler().createResource(
-                        StandardLocation.CLASS_OUTPUT,
-                        "",
-                        PluginContainer.FILE,
-                        e
+                        StandardLocation.CLASS_OUTPUT, "", PluginContainer.FILE, e
                 ).openWriter();
 
-                writer.write(gson.toJson(container = new PluginContainer(
-                        id,
-                        desc
-                )));
+                writer.write(gson.toJson(container = new PluginContainer(id, desc)));
                 writer.close();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
